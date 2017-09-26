@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>Most Sigificant Digit</title>
+        <script type="text/javascript">
+        // Given a number of any size, return the most significant digit. The most significant digit is the leftmost non-zero digit of a number. Given 12345, return 1. Given 67.89, return 6. Given 0.00987, return 9.
+            function sig(num) {
+                if(Math.abs(num) >= 10) {
+                    while(Math.abs(Math.trunc(num)) > 9) {
+                        num = num / 10;
+                    }
+                    console.log(Math.abs(Math.trunc(num)));
+                    return Math.abs(Math.trunc(num));
+                }
+                else if(Math.abs(num) >= 1) {
+                    console.log(Math.abs(Math.trunc(num)));
+                    return Math.abs(Math.trunc(num));
+                }
+                else if(Math.abs(num) > 0) {
+                    while(Math.abs(Math.trunc(num)) < 1) {
+                        num = num * 10;
+                    }
+                    console.log(Math.abs(Math.trunc(num)));
+                    return Math.abs(Math.trunc(num));
+                }
+                else {
+                    console.log("invalid input");
+                    return "invalid input";
+                }
+            }
+            sig(45234.5123);
+            sig(0.9235);
+            sig(-72395.234);
+            sig(-0.0002398);
+            sig(0.000);
+            sig(9.123);
+            sig(-8.123);
+            sig(-1);
+            sig(6.98);
+        </script>
+    </head>
+</html>

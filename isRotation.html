@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>isRotation</title>
+        <script type="text/javascript">
+        // Create a function that returns whether the second string is a rotation of the first.
+            function isRotation(str1, str2) {
+                if(str1.length != str2.length) {
+                    return false;
+                }
+                if(str1 == "") {
+                    return true;
+                }
+                function rIsR(str1, str2, ind) {
+                    if(str1 == str2) {
+                        return true;
+                    }
+                    if(ind == 0) {
+                        return false;
+                    }
+                    str1 = str1[str1.length-1]+str1.substring(0, str1.length-1);
+                    return rIsR(str1, str2, ind-1);
+                }
+                return rIsR(str1, str2, str1.length);
+            }
+            console.log(isRotation("dog", "gpo"));
+        </script>
+    </head>
+</html>

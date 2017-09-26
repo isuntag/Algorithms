@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>SecLarge and RemNeg</title>
+        <script type = "text/javascript">
+        // Return the second-largest element of an array. Given [42, 1, 4, Math.PI, 7] return 7.
+            function secLarge(arr) {
+                var max = arr[0];
+                var second = arr[0];
+                for(var x=1; x < arr.length; x++){
+                    if(arr[x] > second) {
+                        if(arr[x] > max) {
+                            second = max;
+                            max = arr[x];
+                        }
+                        else {
+                            second = arr[x];
+                        }
+                    }
+                }
+                console.log(second)
+                return second;
+            }
+            secLarge([-1, 2, 4, -6, "Hi", 8]);
+        // Implement removeNegatives() that accepts an array, removes negative values, and returns the same array (not a copy), preserving non-negatives' order. Do not use built in array functions.
+            function remNeg(arr) {
+                var noneg = [];
+                var count = 0;
+                for (var x=0; x<arr.length; x++) {
+                    if(arr[x] >= 0) {
+                        noneg[count] = arr[x];
+                        count++;
+                    }
+                }
+                arr=noneg;
+                console.log(arr);
+                return(arr);
+            }
+            remNeg([-1, 2, 4, -6, 8]);
+        // Remove negative values from nested arrays
+            function remNegNest(arr) {
+                for(var x=0; x<arr.length; x++) {
+                    if(arr[x]<0) {
+                        for(var i=x; i<arr.length; i++) {
+                            arr[i] = arr[i+1];
+
+                        }
+                        arr.length = arr.length - 1;
+                    }
+                }
+                console.log(arr);
+                return arr;
+            }
+            remNegNest([-1, 2, 4, -6, 8, -2]);
+        </script>
+    </head>
+</html>

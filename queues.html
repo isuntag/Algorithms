@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Queues</title>
+    <script type="text/javascript">
+      function SLNode(value) {
+        this.val = value;
+        this.next = null;
+      }
+      function SLQueue() {
+        var head = null;
+        var tail = null;
+        // Create a method to add the given value to the end of the queue.
+        this.enqueue = function(val) {
+          if(!this.tal) {
+            this.tail = new SLNode(val);
+            this.head = this.tail;
+          }
+          else {
+            this.tail.next = new SLNode(val);
+            this.tail = this.tail.next;
+          }
+          return this
+        }
+        // Create a method to remove the value at the front of the queue.
+        this.dequeue = function() {
+          if(!this.head) {
+            return this
+          }
+          this.head = this.next;
+          if(!this.head) {
+            this.tail = this.head;
+          }
+          return this
+        }
+      }
+  </head>
+</html>

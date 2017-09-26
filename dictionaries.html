@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Dictonaries</title>
+    <script type="text/javascript">
+    // create a standalone function that accepts two arrays and combines their values sequentially into a new array, at alternating indices start with the first array. Extra values from either array should be included afterward. Given [1,2] and [10,20,30,40], return new array containing [1,10,2,20,30,40].
+      function zipit(arr1, arr2) {
+        var dict = {};
+        for(var i=0; i < arr1.length; i++) {
+          dict[arr1[i]] = arr2[i];
+        }
+        console.log(dict);
+        return dict;
+      }
+    // Build inverthash(assocArr) to convert hash keys to values, and values to keys. Given {"name": "Zaphod", "charm": "high", "morals": "dicey"} return {"Zaphod": "name", "high": "charm", "dicey": "morals"}
+      function invhash(dict) {
+        for(var key in dict) {
+          var temp = key;
+          key = dict.key;
+          dict.key = temp
+        }
+        console.log(dict)
+        return dict
+      }
+      zipit([1,2],['hello','ma',"what's your name?"])
+      invhash({5:'five', 4:'four', 3:'three'})
+    </script>
+  </head>
+</html>

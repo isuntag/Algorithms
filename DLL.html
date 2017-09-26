@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>DLL</title>
+        <script type="text/javascript">
+            function DLNode(val) {
+                this.val = val;
+                this.prev = null;
+                this.next = null;
+            }
+            function DList() {
+                this.head = null;
+                this.tail;
+                // Add a node to the end of the DLL.
+                this.push = function(val) {
+                    var node = new DLNode(val);
+                    if(!this.head){
+                        this.head = node;
+                        this.tail = node;
+                    }
+                    else {
+                        this.tail.next = node;
+                        node.prev = this.tail;
+                        this.tail = node;
+                    }
+                    return this;
+                }
+                // Remove the last node of a DLL.
+                this.pop = function() {
+                    if(!this.head || !this.head.next){
+                        this.head = null;
+                        this.tail = this.head;
+                        return this;
+                    }
+                    this.tail = this.tail.prev;
+                    this.tail.next = null;
+                    return this;
+                }
+                // Return the value of the first node.
+                this.front = function(){
+                    if(this.head){
+                        return this.head.val;
+                    }
+                    return this;
+                }
+                // Return the value fo the last node.
+                this.back = function() {
+                    if(this.tail){
+                        return this.tail.val;
+                    }
+                    return this;
+                }
+                // Return if the DLL contains a specified value.
+                this.contains = function(val) {
+                    if(!this.head) {
+                        return false;
+                    }
+                    var rnr = this.head;
+                    while(rnr) {
+                        if(rnr.val === val) {
+                            return true;
+                        }
+                        rnr = rnr.next;
+                    }
+                    return false;
+                }
+                // Return the number of nodes in the DLL.
+                this.size = function() {
+                    if(!this.head) {
+                        return 0;
+                    }
+                    var rnr = this.head;
+                    var count = 1;
+                    while(rnr.next) {
+                        count++;
+                        rnr = rnr.next;
+                    }
+                    return count;
+                }
+                // Delete the middle node of the DLL.
+                this.delMid = function() {
+                    var size = this.size();
+                    if(size%2 == 0) {
+                        return this;
+                    }
+                    else if(size == 1) {
+                        this.head = null;
+                        this.tail = null;
+                        return this;
+                    }
+                    var runnerFront = this.head;
+                    var runnerBack = this.tail;
+                    while(runnerFront.next != runnerBack.prev) {
+                        runnerFront = runnerFront.next;
+                        runnerBack = runnerBack.prev;
+                    }
+                    runnerFront.next = runnerBack;
+                    runnerBack.prev = runnerFront;
+                    return this;
+                }
+                // Given node in the middle of DLL, remove it.
+                this.delNode = function (node) {
+                    var front = node.prev;
+                    var back = node.next;
+                    if(front == null) {
+                        if(back == null) {
+                            this.head = null;
+                            this.tail = null;
+                        } else {
+                            this.head = back;
+                            back.prev = null;
+                        }
+                        node = null;
+                        return this;
+                    } else if(back == null){
+                        this.tail = front;
+                        front.next = null;
+                        node = null;
+                        return this;
+                    }
+                    front.next = back;
+                    back.prev = front;
+                    node = null;
+                    return this;
+                }
+                // Determine whether a DLL is a palindrome.
+                this.isPal = function() {
+                    if(!this.head) {
+                        return true;
+                    }
+                    if(this.head.val != this.tail.val) {
+                        return false;
+                    }
+                    var runFront = this.head;
+                    var runBack = this.tail;
+                    while(runFront.next != runBack.prev && runFront.next != runBack){
+                        if(runFront.next.val != runBack.prev.val){
+                            return false;
+                        }
+                        console.log("yes")
+                        runFront = runFront.next;
+                        runBack = runBack.prev;
+                    }
+                    return true;
+                }
+            }
+            var listy = new DList();
+            listy.push(1).push(1)
+            // console.log(listy.front());
+            // console.log(listy.back());
+            // console.log(listy.contains(1));
+            // console.log(listy.size());
+            console.log(listy.isPal());
+            console.log(listy);
+        </script>
+    </head>
+</html>

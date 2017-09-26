@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Algorithms with Strings</title>
+        <script type="text/javascript">
+        // Given a string of words, return the longest word. Given "Snap crackle pop makes the world go round!", return "crackle".
+            function longWord(string) {
+                if(string.length <= 1) {
+                    return string;
+                }
+                var sub = "";
+                var long = "";
+                for(var i=0; i<string.length; i++) {
+                    if(string[i] == " "){
+                        if(sub.length > long.length) {
+                            long = sub;
+                        }
+                        sub = "";
+                    }
+                    else {
+                        sub += string[i];
+                        if(i == string.length-1){
+                            if(sub.length > long.length) {
+                                long = sub;
+                            }
+                        }
+                    }
+                }
+                return long;
+            }
+        // Given a string of words (with spaces), return a new string with the words in reverse sequence. Given "This is a test", return "test a is This".
+            function reverseWordOrder(str) {
+                if(str.length <= 2) {
+                    return str;
+                }
+                var arr = [];
+                var sub = "";
+                var rev = "";
+                for(var i=0; i<str.length; i++) {
+                    if(str[i] == " ") {
+                        arr.push(sub);
+                        sub = "";
+                    } else {
+                        sub += str[i];
+                        if(i == str.length-1) {
+                            arr.push(sub);
+                        }
+                    }
+                }
+                for(var j=arr.length-1; j >= 0; j--) {
+                    rev += arr[j];
+                    if(j != 0){
+                        rev += " ";
+                    }
+                }
+                return rev;
+            }
+            // console.log(longWord("whyyy ls sdafsdaasdfsadf"))
+            console.log(reverseWordOrder("one two three four five"))
+        </script>
+    </head>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>Remove Duplicates</title>
+        <script type="text/javascript">
+        // Given a sorted array, remove duplicate values. Because array elements are already in order, all duplicate values will be grouped together. Do not use any built-in array methods.
+        function removeDup(arr) {
+            for(var i=1; i<arr.length;i++){
+                if(arr[i] == arr[i-1]){
+                    for(var x=i; x<arr.length; x++) {
+                        arr[x] = arr[x+1]
+                    }
+                    arr.length = arr.length-1;
+                    i -= 1;
+                }
+            }
+            console.log(arr);
+            return arr
+        }
+        // Solve this without using any nested loops.
+        function remDup_NoNested(arr){
+            var newarr = [arr[0]];
+            var count = 1
+            for(var i=1; i<arr.length; i++){
+                if(arr[i] !== arr[i-1]) {
+                    newarr[count] = (arr[i]);
+                    count += 1;
+                }
+            }
+            arr=newarr;
+            console.log(arr);
+            return arr;
+        }
+
+        arr = [1,2,2,2,3,4,4];
+        removeDup(arr);
+        remDup_NoNested(arr);
+        </script>
+    </head>
+</html>

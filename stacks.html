@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Stacks</title>
+    <script type="text/javascript">
+      function arrStack() {
+        var arr = [];
+        // Add a val to the stack
+        this.push = function(val) {
+          arr.push(val);
+          return this;
+        }
+        //  Return (not remove) the stack's top value.
+        this.top = function() {
+          return arr[arr.length-1]
+        }
+        //  Return whether the stack is empty
+        this.isempty = function() {
+          if(arr.length == 0) {
+            return true
+          }
+          else {
+            return false
+          }
+        }
+        // Remove and return the top value.
+        this.pop = function() {
+          var exiled_one = arr[arr.length-1];
+          arr.pop();
+          return exiled_one;
+        }
+        // Retrun whether given val is within the stack
+        this.chosenone = function(val) {
+          for(var i=0; i<arr.length; i++) {
+            if(arr[i] == val) {
+              return true
+            }
+          }
+          return false
+        }
+        // return the number of stacked values.
+        this.count = function() {
+          return arr.length;
+        }
+      }
+      var stack = new arrStack();
+      stack.push(4).push(10).push(5).push(9);
+      stack.chosenone(5);
+      console.log(stack)
+    </script>
+  </head>
+</html>

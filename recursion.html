@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Recursion Algorithms</title>
+        <script type="text/javascript">
+        // Given num, return the product of ints from 1 up to num. If less than zero, treat as zero. If not integer, truncate. 0! == 1.
+            function rFact(num) {
+                if(Math.trunc(num) <=1){
+                    return 1;
+                }
+                return Math.trunc(num)*rFact(num-1);
+            }
+            // Recursively compute and return the value at a given index in the Fibonacci sequence.
+            function rFib(n) {
+                var num = Math.trunc(n);
+                if(num <= 0) {
+                    return 0;
+                }
+                else if (num == 1){
+                    return 1;
+                }
+                return rFib(num-2) + rFib(num-1);
+            }
+            // Most graphical "paint" applications have a 'paintcan fill' function that floods part of an image with a certain color. We change the image as if we painted a canvas: a two-dimensional array of integers, where each integer represents a color for that pixel. The canvas Array.length is the Y dimension of the canvas; each spot in the canvas array is a row in the image, with a length equal to our canvas' X dimension. Given a canvals (2-dimensional array of integers), starting coordinate (2-element array), and the color to flood (integer value) build floodFill(canvas2d, startXY, newColor). Replace a pixel's value only if it is the same color as the origin coordinate and is directly adjacent via X or Y to another pixel you will change.
+            function rFloodFill(cvs,crd,clr) {
+                var oldclr = cvs[crd[0]][crd[1]];
+                var row = crd[0];
+                var col = crd[1];
+                cvs[row][col] = clr;
+                if(col-1 >= 0 && cvs[row][col-1] == oldclr) {
+                    rFloodFill(cvs,[row,col-1],clr);
+                }
+                if(col+1<cvs[row].length && cvs[row][col+1] == oldclr) {
+                    rFloodFill(cvs,[row,col+1],clr);
+                }
+                if(row-1 >= 0 && cvs[row-1][col] == oldclr) {
+                    rFloodFill(cvs,[row-1,col],clr);
+                }
+                if(row+1<cvs.length && cvs[row+1][col] == oldclr) {
+                    rFloodFill(cvs,[row+1,col],clr);
+                }
+                return cvs;
+            }
+            // Return an array with every possible in-order charachter subset of str. The resultant array itself need not be in any specific order - it is the subset of letters in each string that must be in the same order as they were in the original string. Given "abc" return ["","c","b","bc","a","ac","ab","abc"] (in any order).
+            function rInOrderSubsets(str) {
+                let arr = [];
+                function helper(index,substr){
+                    if(index == str.length) {
+                        arr.push(substr);
+                        return;
+                    }
+                    helper(index+1, substr+str[index]);
+                    helper(index+1, substr);
+                }
+                helper(0, "");
+                return arr;
+            }
+            // Binary String Expansion: You are given a string containing chars '0', '1', and '?'. For every '?', either '0' or '1' can be substituted. Write a recursive function to return array of all valid strings with '?' chars expanded to '0' or '1'. binStrExpand("1?0?") => ["1000","1001","1100", "1101"].
+            function rBinStrExp(str){
+                var arr = [];
+                function helper(index, substr){
+                    if(index == str.length){
+                        arr.push(substr);
+                        return
+                    }
+                    if(str[index] == "?"){
+                        helper(index+1, substr+0);
+                        helper(index+1, substr+1);
+                    }
+                    else {
+                        helper(index+1, substr+str[index]);
+                    }
+                }
+                helper(0,"");
+                return arr;
+            }
+            // Generate All Possible Coin Change: Given a number of American cents, compute and return an array enumerating all possible ways to represent it, with pennies (1 cent), nickels (5 cents), dimes (10 cents), quarters (25 cents). For 5, return [{dimes:0,nickels:1,pennies:0,quarters:0}, {dimes:0,nickels:0,pennies:5,quarters:0}]. Do not return duplicates.
+            function rGenAllCoinCh(cents) {
+                var arr = [];
+                function helper(cents, q, d, n, p) {
+                    if(cents == 0) {
+                        // to prevent duplicates
+                        for(i=0; i< arr.length; i++){
+                            if (arr[i].quarters == q && arr[i].dimes == d && arr[i].nickels == n && arr[i].pennies == p) {
+                                return
+                            }
+                        }
+                        arr.push({quarters: q, dimes: d, nickels: n, pennies: p});
+                        return;
+                    }
+                    if(cents/25 >= 1){
+                        helper(cents-25, q+1, d, n, p);
+                    }
+                    if(cents/10 >= 1){
+                        helper(cents-10, q, d+1, n, p);
+                    }
+                    if(cents/5 >= 1){
+                        helper(cents-5, q, d, n+1, p);
+                    }
+                    if(cents > 0){
+                        helper(0, q, d, n, p+cents);
+                    }
+                }
+                helper(cents, 0,0,0,0);
+                return arr;
+            }
+            // console.log(rFact(4));
+            // console.log(rFib(5));
+            // console.log(rFloodFill([[1,2,3],[3,3,3],[2,1,3]], [2,0], 4));
+            // console.log(rInOrderSubsets("abc"));
+            // console.log(rBinStrExp("1?0?"))
+            console.log(rGenAllCoinCh(25));
+
+        </script>
+    </head>
+</html>

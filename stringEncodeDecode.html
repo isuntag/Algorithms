@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>String Encode and Decode</title>
+        <script type="text/javascript">
+        // Given a string that may contain sequences of consecutive characters, create a function to shorten the string by including the character, then the number of times it appears. Given "aaaabbcddd", return "a4b2c1d3". If the result is not shorter (such as "bb" => "b2"), return the original string.
+            function strEncode(str) {
+                if(str.length <= 2) {
+                    return str;
+                }
+                var newStr = "";
+                var count = 1;
+                for(var i=0; i<str.length; i++) {
+                    if(i == str.length-1) {
+                        newStr += str[i]+count;
+                    }
+                    else if(str[i] == str[i+1]) {
+                        count++;
+                    }
+                    else {
+                        newStr += str[i]+count;
+                        count = 1;
+                    }
+                }
+                if(newStr.length<str.length) {
+                    return newStr;
+                }
+                else {
+                    return str;
+                }
+            }
+        // Given an encoded string, decode and return it. Given "a3b2c1d3", return "aaabbcddd".
+            function strDecode(str) {
+                var newStr = "";
+                for(var i=0; i<str.length; i+=2) {
+                    var count = str[i+1];
+                    while(count > 0) {
+                        newStr += str[i];
+                        count--;
+                    }
+                }
+                return newStr;
+            }
+            console.log(strEncode("aaaaabbbcddde"));
+            console.log(strDecode("a5b3c1d3e1"));
+        </script>
+    </head>
+</html>

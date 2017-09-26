@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <meta charset='utf-8'>
+        <title>Rotate Array</title>
+        <script type="text/javascript">
+        // Implement rotateArr(arr, shiftBy) that accepts array and offset. Shift arr's values to the right by that amount. 'Wrap-around' any values that shift off array's end to the other side, so that no data is lost. Operate in-place: given ([1,2,3],1) change the array to [3,1,2]. Do not use built-in array functions.
+        function rotateArr(arr,shift) {
+            if(Math.trunc(shift%arr.length) == 0) {
+                console.log(arr);
+                return arr;
+            }
+            else {
+                for(var x=1; x<=Math.trunc(shift%arr.length); x++) {
+                    if(shift < 0) {
+                        var temp = arr[0];
+                        for(var i=0; i< arr.length-1; i++) {
+                            arr[i] = arr[i+1];
+                        }
+                        arr[arr.length-1] = temp;
+                    }
+                    else if( shift > 0){
+                        var temp = arr[arr.length-1];
+                        for(var i=arr.length-1; i>0; i--){
+                            arr[i] = arr[i-1];
+                        }
+                        arr[0] = temp
+                    }
+                }
+                console.log(arr);
+                return arr;
+            }
+        }
+        rotateArr([1,2,3,4], 8)
+        </script>
+    </head>
+</html>

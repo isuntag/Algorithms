@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript">
+        // return the number at given index in the Fibonacci sequence.
+        function fib(index) {
+            var even = 0;
+            var odd = 1;
+            for(var i=1; i < index; i+=2) {
+                even += odd;
+                odd += even;
+            }
+            if(index % 2 === 0) {
+                return even;
+            }
+            else {
+                return odd;
+            }
+        }
+        </script>
+    </head>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Sorts</title>
+        <script type="text/javascript">
+        // BubbleSort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order. Create a function that uses BubbleSort to sort an usorted array in-place.
+        function bubbleSort(arr) {
+            for(let i=0; i<arr.length; i++) {
+                for(let x=0; x<arr.length-(i+1); x++) {
+                    if(arr[x] > arr[x+1]) {
+                        let temp = arr[x];
+                        arr[x] = arr[x+1];
+                        arr[x+1] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+        // Recursively BubbleSort the array
+        function rBubbleSort(arr) {
+            let swapped = false;
+            let temp;
+            for(let i=0; i<arr.length; i++) {
+                if(arr[i] > arr[i+1]) {
+                    let temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                    swapped = true;
+                }
+            }
+            if(swapped) {
+                rBubbleSort(arr)
+            }
+            return arr;
+        }
+        console.log(bubbleSort([3,2,5,1,4]));
+        console.log(rBubbleSort([3,2,5,1,4]));
+        </script>
+    </head>
+</html>
