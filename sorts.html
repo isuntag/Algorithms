@@ -53,6 +53,37 @@
                 return this;
             }
         }
+        function sListBubbleSort(list) {
+            if(!list.head || !list.head.next) {
+                return list;
+            }
+            let swapped = false;
+            let walker = list.head;
+            let runner = walker.next;
+            if(runner.val < walker.val) {
+                walker.next = runner.next;
+                runner.next = walker;
+                list.head = runner;
+                swapped = true;
+            }
+            walker = list.head;
+            runner = walker.next.next;
+            while(runner) {
+                if(runner.val < walker.next.val) {
+                    let temp = walker.next;
+                    walker.next = runner;
+                    temp.next = runner.next;
+                    runner.next = temp;
+                    swapped = true;
+                }
+                walker = walker.next;
+                runner = runner.next;
+            }
+            if(swapped) {
+                sListBubbleSort(list);
+            }
+            return list;
+        }
         function selectionSort(arr) {
             let temp;
             for(let i=0; i<arr.length; i++) {
@@ -98,11 +129,11 @@
             }
             return arr;
         }
-        // var listy = new SLL();
-        // listy.add(4).add(2).add(1).add(3);
-        // console.log(sListBubbleSort(listy));
+        var listy = new SLL();
+        listy.add(2).add(1).add(6).add(4).add(7).add(3);
+        console.log(sListBubbleSort(listy));
         // console.log(selectionSort2([5,3,2,4,1]));
-        console.log(insertSort([5,3,2,4,1]));
+        // console.log(insertSort([5,3,2,4,1]));
         </script>
     </head>
 </html>
