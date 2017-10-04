@@ -4,6 +4,26 @@
         <meta charset="utf-8">
         <title>Sorts</title>
         <script type="text/javascript">
+        // Node and SLL functions to be able to create SLLs
+        function Node(val) {
+            this.val = val;
+            this.next = null;
+        }
+        function SLL() {
+            this.head = null;
+            this.add = function(val) {
+                var runner = this.head;
+                if(!runner) {
+                    this.head = new Node(val);
+                    return this;
+                }
+                while(runner.next) {
+                    runner = runner.next;
+                }
+                runner.next = new Node(val);
+                return this;
+            }
+        }
         // BubbleSort is the simplest sorting algorithm that works by repeatedly swapping the adjacent elements if they are in wrong order. Create a function that uses BubbleSort to sort an usorted array in-place.
         function bubbleSort(arr) {
             for(let i=0; i<arr.length; i++) {
@@ -34,25 +54,7 @@
             }
             return arr;
         }
-        function Node(val) {
-            this.val = val;
-            this.next = null;
-        }
-        function SLL() {
-            this.head = null;
-            this.add = function(val) {
-                var runner = this.head;
-                if(!runner) {
-                    this.head = new Node(val);
-                    return this;
-                }
-                while(runner.next) {
-                    runner = runner.next;
-                }
-                runner.next = new Node(val);
-                return this;
-            }
-        }
+        // Use BubbleSort to sort a SLL
         function sListBubbleSort(list) {
             if(!list.head || !list.head.next) {
                 return list;
@@ -129,11 +131,129 @@
             }
             return arr;
         }
-        var listy = new SLL();
-        listy.add(2).add(1).add(6).add(4).add(7).add(3);
-        console.log(sListBubbleSort(listy));
+        function combineArrs(arr1, arr2) {
+            for(let i=0; i<arr2.length; i++) {
+                for(let x=0; x<arr1.length; x++) {
+                    if(arr2[i] <= arr1[x]) {
+                        for(let j=arr1.length; j>x; j--) {
+                            arr1[j] = arr1[j-1]
+                        }
+                        arr1[x] = arr2[i]
+                        break;
+                    }
+                    else if(x==arr1.length-1) {
+                        arr1[x+1] = arr2[i];
+                        break;
+                    }
+                }
+            }
+            return arr1;
+        }
+        function combineArrs2(arr1, arr2) {
+            let i=0;
+            let j=0;
+            while(i<arr2.length) {
+                if(arr2[i]<arr1[j]) {
+                    for(let x=arr1.length; x>j; x--) {
+                        arr1[x] = arr1[x-1]
+                    }
+                    arr1[j] = arr2[i]
+                    i++;
+                    j=0;
+                }
+                else if(j==arr1.length) {
+                    arr1[j] = arr2[i];
+                    j=0;
+                    i++;
+                }
+                else {
+                    j++;
+                }
+            }
+            return arr1;
+        }
+        // combineArrs3 uses more space but saves time
+        function combineArrs3(arr1, arr2) {
+            let newArr = [];
+            let i =0;
+            let j=0;
+            while(arr1[i] || arr2[j]) {
+                if(arr1[i] && arr2[j]) {
+                    if(arr1[i]<arr2[j]) {
+                        newArr.push(arr1[i]);
+                        i++;
+                    }
+                    else {
+                        newArr.push(arr2[j]);
+                        j++
+                    }
+                }
+                else if(arr1[i]) {
+                    newArr.push(arr1[i]);
+                    i++;
+                }
+                else {
+                    newArr.push(arr2[j]);
+                    j++;
+                }
+            }
+            return newArr;
+        }
+        function mergeSortArrs(arr) {
+            // Break case is when there is a single number in the array. Return the array with one value
+            if(arr.length == 1) {
+                return arr;
+            }
+            // if not at the break case then return the combineArrs3 function with two halfs of the array also sorted via mergeSortArrs.
+            // split the array into two. run mergeSortArrs on both sides. combine arrays.
+            return combineArrs3(mergeSortArrs(arr.slice(0, Math.floor(arr.length/2))), mergeSortArrs(arr.slice(Math.floor(arr.length/2), arr.length)));
+        }
+        // mergeSortArrs as a ternary
+        function mergeSortArrs2(arr) {
+            return arr.length == 1 ? arr : (combineArrs3(mergeSortArrs(arr.slice(0, Math.floor(arr.length/2))), mergeSortArrs(arr.slice(Math.floor(arr.length/2), arr.length))));
+        }
+        function SLcombine(sl1, sl2) {
+            var rnr1 = sl1.head;
+            var rnr2 = sl2.head;
+            var nList = new SLL();
+            if(rnr1.val <= rnr2.val) {
+                nList.add(rnr1.val);
+                rnr1 = rnr1.next;
+            }
+            else {
+                nList.add(rnr2.val);
+                rnr2 = rnr2.next;
+            }
+            while(rnr1 && rnr2) {
+                if(rnr1.val <= rnr2.val) {
+                    nList.add(rnr1.val);
+                    rnr1 = rnr1.next;
+                }
+                else {
+                    nList.add(rnr2.val);
+                    rnr2 = rnr2.next;
+                }
+            }
+            while(rnr1) {
+                nList.add(rnr1.val);
+                rnr1 = rnr1.next;
+            }
+            while(rnr2) {
+                nList.add(rnr2.val);
+                rnr2 = rnr2.next
+            }
+            return nList;
+        }
+        // var list1 = new SLL();
+        // var list2 = new SLL();
+        // list1.add(1).add(3).add(5).add(6).add(7).add(9);
+        // list2.add(2).add(3).add(4).add(5).add(8).add(10);
+        // console.log(sListBubbleSort(listy));
         // console.log(selectionSort2([5,3,2,4,1]));
         // console.log(insertSort([5,3,2,4,1]));
+        // console.log(combineArrs3([2,3,4,6], [1,5,7,8]));
+        // console.log(SLcombine(list1, list2));
+        console.log(mergeSortArrs2([3,2,6,1,4,5,3]));
         </script>
     </head>
 </html>
