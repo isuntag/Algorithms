@@ -244,6 +244,22 @@
             }
             return nList;
         }
+        function swap(arr, indexA, indexB) {
+            let temp = arr[indexA];
+            arr[indexA] = arr[indexB];
+            arr[indexB] = temp;
+        }
+        function partition(arr) {
+            var pivot = arr[0];
+            var index = 0;
+            for(let i=0; i<arr.length; i++){
+                if(arr[i] < pivot) {
+                    swap(arr, i, index);
+                    index++;
+                }
+            }
+            return arr[0];
+        }
         // var list1 = new SLL();
         // var list2 = new SLL();
         // list1.add(1).add(3).add(5).add(6).add(7).add(9);
@@ -253,7 +269,8 @@
         // console.log(insertSort([5,3,2,4,1]));
         // console.log(combineArrs3([2,3,4,6], [1,5,7,8]));
         // console.log(SLcombine(list1, list2));
-        console.log(mergeSortArrs2([3,2,6,1,4,5,3]));
+        // console.log(mergeSortArrs2([3,2,6,1,4,5,3]));
+        console.log(partition([5,4,9,2,5,3]));
         </script>
     </head>
 </html>
