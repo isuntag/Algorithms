@@ -252,13 +252,113 @@
         function partition(arr) {
             var pivot = arr[0];
             var index = 0;
+            swap(arr,index,arr.length-1)
             for(let i=0; i<arr.length; i++){
                 if(arr[i] < pivot) {
                     swap(arr, i, index);
                     index++;
                 }
             }
+            swap(arr,index,arr.length-1);
             return arr[0];
+        }
+        function partition2(arr) {
+            var pivot;
+            var pivotIndex;
+            var first = arr[0];
+            var last = arr[arr.length-1];
+            var mid = arr[Math.floor(arr.length/2)];
+            if(mid<=first<=last || last<=first<=mid) {
+                pivot = first;
+                pivotIndex = 0;
+            }
+            else if(first<=mid<=last || last<=mid<=first) {
+                pivot = mid;
+                pivotIndex=Math.floor(arr.length/2);
+            }
+            else {
+                pivot = last;
+                pivotIndex = arr.length-1;
+            }
+            swap(arr, arr.length-1, pivotIndex);
+            for(let i=0; i<arr.length; i++) {
+                if(arr[i] < pivot) {
+                    swap(arr,i,index);
+                    index++;
+                }
+            }
+            swap(arr, arr.length-1, index);
+            return arr[pivotIndex];
+        }
+        function partition3(arr, start, end) {
+            var pivot;
+            var pivotIndex;
+            var index=start;
+            var first=arr[start];
+            var last=arr[end];
+            var mid=arr[Math.floor((end-start)/2)];
+            if(mid<=first<=last || last<=first<=mid) {
+                pivot = first;
+                pivotIndex = start;
+            }
+            else if(first<=mid<=last || last<=mid<=first) {
+                pivot = mid;
+                pivotIndex=Math.floor((end-start)/2);
+            }
+            else {
+                pivot = last;
+                pivotIndex = end;
+            }
+            swap(arr,pivotIndex,end);
+            for(let i=start; i<end; i++) {
+                if(arr[i]<pivot) {
+                    swap(arr,i,index);
+                    index++;
+                }
+            }
+            swap(arr,end,index);
+            console.log(arr)
+            return arr[pivotIndex];
+        }
+        function quickSort(arr) {
+            function partition4(arr, start, end) {
+                var pivot;
+                var pivotIndex;
+                var index=start;
+                var first=arr[start];
+                var last=arr[end];
+                var mid=arr[Math.floor((end-start)/2)];
+                var changed = false;
+                if(mid<=first<=last || last<=first<=mid) {
+                    pivot = first;
+                    pivotIndex = start;
+                }
+                else if(first<=mid<=last || last<=mid<=first) {
+                    pivot = mid;
+                    pivotIndex=Math.floor((end-start)/2);
+                }
+                else {
+                    pivot = last;
+                    pivotIndex = end;
+                }
+                swap(arr,pivotIndex,end);
+                for(let i=start; i<end; i++) {
+                    if(arr[i]<pivot) {
+                        swap(arr,i,index);
+                        index++;
+                        changed=true;
+                    }
+                }
+                swap(arr,end,index);
+                if(changed){
+                    return partition4(arr,0,pivotIndex)+[pivot]+partition4(arr,pivotIndex,arr.length-1);
+                }
+                else {
+                    return arr;
+                }
+            }
+            partition4(arr,0,arr.length-1);
+            return arr;
         }
         // var list1 = new SLL();
         // var list2 = new SLL();
@@ -270,7 +370,8 @@
         // console.log(combineArrs3([2,3,4,6], [1,5,7,8]));
         // console.log(SLcombine(list1, list2));
         // console.log(mergeSortArrs2([3,2,6,1,4,5,3]));
-        console.log(partition([5,4,9,2,5,3]));
+        // console.log(partition3([5,4,9,2,5,3], 2,4));
+        console.log(quickSort([5,4,9,2,5,3]));
         </script>
     </head>
 </html>
