@@ -291,17 +291,18 @@
             return arr[pivotIndex];
         }
         function partition3(arr, start, end) {
+            console.log('starting: '+arr)
             var pivot;
             var pivotIndex;
             var index=start;
             var first=arr[start];
             var last=arr[end];
             var mid=arr[Math.floor((end-start)/2)];
-            if(mid<=first<=last || last<=first<=mid) {
+            if((mid<=first && first<=last) || (last<=first && first<=mid)) {
                 pivot = first;
                 pivotIndex = start;
             }
-            else if(first<=mid<=last || last<=mid<=first) {
+            else if((first<=mid && mid<=last) || (last<=mid && mid<=first)) {
                 pivot = mid;
                 pivotIndex=Math.floor((end-start)/2);
             }
@@ -309,10 +310,13 @@
                 pivot = last;
                 pivotIndex = end;
             }
+            console.log('pivot: arr['+pivotIndex +']: '+ pivot)
             swap(arr,pivotIndex,end);
+            console.log('after first swap: '+arr)
             for(let i=start; i<end; i++) {
                 if(arr[i]<pivot) {
                     swap(arr,i,index);
+                    console.log(arr)
                     index++;
                 }
             }
@@ -327,15 +331,14 @@
                 var index=start;
                 var first=arr[start];
                 var last=arr[end];
-                var mid=arr[Math.floor((end-start)/2)];
-                var changed = false;
+                var mid=arr[start + Math.floor((end-start)/2)];
                 if((mid<=first && first<=last) || (last<=first && first<=mid)) {
                     pivot = first;
                     pivotIndex = start;
                 }
                 else if((first<=mid && mid<=last) || (last<=mid && mid<=first)) {
                     pivot = mid;
-                    pivotIndex=Math.floor((end-start)/2);
+                    pivotIndex=start+Math.floor((end-start)/2);
                 }
                 else {
                     pivot = last;
@@ -346,16 +349,14 @@
                     if(arr[i]<pivot) {
                         swap(arr,i,index);
                         index++;
-                        changed=true;
                     }
                 }
                 swap(arr,end,index);
-                if(changed){
-                    partition4(arr,0,index-1);
-                    partition4(arr,index,arr.length-1);
+                if(start < index-1) {
+                    partition4(arr,start,index);
                 }
-                else {
-                    return arr;
+                if(end > index) {
+                    partition4(arr,index+1,end);
                 }
             }
             partition4(arr,0,arr.length-1);
@@ -371,9 +372,9 @@
         // console.log(combineArrs3([2,3,4,6], [1,5,7,8]));
         // console.log(SLcombine(list1, list2));
         // console.log(mergeSortArrs2([3,2,6,1,4,5,3]));
-        // console.log(partition3([5,4,9,2,5,3], 2,4));
-        console.log(quickSort([1, 4, 7, 2, 4, 6, 2, 9]))
-        // console.log(quickSort([10,4,7,2,20,4,6,2,40,9,1]));
+        // console.log(partition3([0,3,0,0,1,2,0], 0,6));
+        // console.log(quickSort([1, 4, 7, 2, 4, 6, 2, 9]))
+        console.log(quickSort([-5, -6, -7, 0, 0, 0, 0, -8, 1, 2, 3]));
         </script>
     </head>
 </html>
