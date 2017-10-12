@@ -329,11 +329,11 @@
                 var last=arr[end];
                 var mid=arr[Math.floor((end-start)/2)];
                 var changed = false;
-                if(mid<=first<=last || last<=first<=mid) {
+                if((mid<=first && first<=last) || (last<=first && first<=mid)) {
                     pivot = first;
                     pivotIndex = start;
                 }
-                else if(first<=mid<=last || last<=mid<=first) {
+                else if((first<=mid && mid<=last) || (last<=mid && mid<=first)) {
                     pivot = mid;
                     pivotIndex=Math.floor((end-start)/2);
                 }
@@ -351,7 +351,8 @@
                 }
                 swap(arr,end,index);
                 if(changed){
-                    return partition4(arr,0,pivotIndex)+[pivot]+partition4(arr,pivotIndex,arr.length-1);
+                    partition4(arr,0,index-1);
+                    partition4(arr,index,arr.length-1);
                 }
                 else {
                     return arr;
@@ -371,7 +372,8 @@
         // console.log(SLcombine(list1, list2));
         // console.log(mergeSortArrs2([3,2,6,1,4,5,3]));
         // console.log(partition3([5,4,9,2,5,3], 2,4));
-        console.log(quickSort([5,4,9,2,5,3]));
+        console.log(quickSort([1, 4, 7, 2, 4, 6, 2, 9]))
+        // console.log(quickSort([10,4,7,2,20,4,6,2,40,9,1]));
         </script>
     </head>
 </html>
