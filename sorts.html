@@ -244,11 +244,13 @@
             }
             return nList;
         }
+        // function to swap two values in an array
         function swap(arr, indexA, indexB) {
             let temp = arr[indexA];
             arr[indexA] = arr[indexB];
             arr[indexB] = temp;
         }
+        // Partition unsorted array in-place. Use arr[0] as pivot val; return idx of pivot. Input [5,4,9,2,5,3] becomes [4,2,3,5,5,9], return 3
         function partition(arr) {
             var pivot = arr[0];
             var index = 0;
@@ -262,6 +264,7 @@
             swap(arr,index,arr.length-1);
             return arr[0];
         }
+        // For pivot use median of first, last, mid
         function partition2(arr) {
             var pivot;
             var pivotIndex;
@@ -290,8 +293,8 @@
             swap(arr, arr.length-1, index);
             return arr[pivotIndex];
         }
+        // Partition a subset, given start and end. Exclude end; default values are 0 and arr.length.
         function partition3(arr, start, end) {
-            console.log('starting: '+arr)
             var pivot;
             var pivotIndex;
             var index=start;
@@ -310,21 +313,21 @@
                 pivot = last;
                 pivotIndex = end;
             }
-            console.log('pivot: arr['+pivotIndex +']: '+ pivot)
             swap(arr,pivotIndex,end);
-            console.log('after first swap: '+arr)
             for(let i=start; i<end; i++) {
                 if(arr[i]<pivot) {
                     swap(arr,i,index);
-                    console.log(arr)
                     index++;
                 }
             }
             swap(arr,end,index);
-            console.log(arr)
             return arr[pivotIndex];
         }
-        function quickSort(arr) {
+        // Create a function that uses partition3() to sort an array in-place.
+        function quickSort(arr, start=0, end=arr.length-1) {
+            if(arr.length<=1) {
+                return arr;
+            }
             function partition4(arr, start, end) {
                 var pivot;
                 var pivotIndex;
@@ -352,14 +355,17 @@
                     }
                 }
                 swap(arr,end,index);
-                if(start < index-1) {
-                    partition4(arr,start,index);
-                }
-                if(end > index) {
-                    partition4(arr,index+1,end);
-                }
+                return index;
             }
-            partition4(arr,0,arr.length-1);
+            index = partition4(arr,start,end);
+            // if start is less than index (meaning there are potentially unsorted numbers left of where the pivot value was put in the final swap) then partition4 the numbers left of index
+            if(start < index) {
+                quickSort(arr,start,index);
+            }
+            // Same thing with the numbers right of index when end > index+1. If there's only one number after the index it must be larger than the pivot number which was put back in the index position so we don't have to worry about sorting it
+            if(end > index+1) {
+                quickSort(arr,index+1,end);
+            }
             return arr;
         }
         // var list1 = new SLL();
@@ -373,7 +379,7 @@
         // console.log(SLcombine(list1, list2));
         // console.log(mergeSortArrs2([3,2,6,1,4,5,3]));
         // console.log(partition3([0,3,0,0,1,2,0], 0,6));
-        // console.log(quickSort([1, 4, 7, 2, 4, 6, 2, 9]))
+        console.log(quickSort([9, 2]))
         console.log(quickSort([-5, -6, -7, 0, 0, 0, 0, -8, 1, 2, 3]));
         </script>
     </head>
