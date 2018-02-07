@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Delete Node from SLL with only pointer to Node</title>
+        <script>
+        // Delete a node from a singly-linked list given only a variable pointing to that node.
+        // The input could, for example, be the variable b below:
+        function LinkedListNode(value) {
+            this.value = value;
+            this.next = null;
+            }
+
+            var a = new LinkedListNode('A');
+            var b = new LinkedListNode('B');
+            var c = new LinkedListNode('C');
+
+            a.next = b;
+            b.next = c;
+
+            deleteNode(b);
+        }
+        /* O(1) time and O(1) space.
+        Has potential side effects:
+        -  any pointer to the node will produce a value and next that may not be expected since we just changed the value of the node.
+        -  Any pointers to the original node.next will be pointing to a node that cannot be gotten to by traversing the list. */
+        function deleteNode(node) {
+            var nextNode = node.next;
+            if(nextNode) {
+                node.value = nextNode.value;
+                node.next = nextNode.next;
+            } else {
+                console.log("Can't delete the last node this way.")
+            }
+        }
+        </script>
+    </head>
+</html>

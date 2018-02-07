@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>MeshMessage</title>
+        <script type="text/javascript">
+            var network = {
+                'Min'     : ['William', 'Jayden', 'Omar'],
+                'William' : ['Min', 'Noam'],
+                'Jayden'  : ['Min', 'Amelia', 'Ren', 'Noam'],
+                'Ren'     : ['Jayden', 'Omar'],
+                'Amelia'  : ['Jayden', 'Adam', 'Miguel'],
+                'Adam'    : ['Amelia', 'Miguel'],
+                'Miguel'  : ['Amelia', 'Adam']
+            }
+            function SLNode(value) {
+              this.val = value;
+              this.next = null;
+            }
+            function Queue() {
+              var head = null;
+              var tail = null;
+              // Create a method to add the given value to the end of the queue.
+              this.enqueue = function(val) {
+                if(!this.tail) {
+                  this.tail = new SLNode(val);
+                  this.head = this.tail;
+                }
+                else {
+                  this.tail.next = new SLNode(val);
+                  this.tail = this.tail.next;
+                }
+                return this
+              }
+              // Create a method to remove the value at the front of the queue.
+              this.dequeue = function() {
+                if(!this.head) {
+                  return null
+                }
+                var returned = this.head;
+                this.head = this.head.next;
+                if(!this.head) {
+                  this.tail = this.head;
+                }
+                console.log(returned)
+                return returned;
+              }
+              this.size = function() {
+                  if(!this.head) {
+                      return 0;
+                  }
+                  else {
+                      var count = 1;
+                      var runner = this.head;
+                      while(runner.next) {
+                          count++;
+                          runner = runner.next;
+                      }
+                      return count;
+                  }
+              }
+            }
+            function reconstructPath(nodesVisited, start, end) {
+                var path = [];
+                var current = end;
+                while(current !== null) {
+                    path.push(current);
+                    current = nodesVisited[current];
+                }
+                return path.reverse();
+            }
+            function findNetwork(network, from, to) {
+                var nodesToVisit = new Queue();
+                nodesToVisit.enqueue(from);
+
+                var howToReach = {};
+                howToReach[from] = null;
+
+                while(nodesToVisit.size() > 0) {
+                    var currentNode = nodesToVisit.dequeue();
+                    if(currentNode.val = to) {
+                        return reconstructPath(howToReach, from, to);
+                    }
+                    network[currentNode].forEach(function(neighbor) {
+                        if(!howToReach.hasOwnProperty(neighbor)) {
+                            console.log('whyyy')
+                            nodesToVisit.enqueue(neighbor);
+                            howToReach[neighbor] = currentNode;
+                        }
+                    })
+                }
+            }
+            console.log(findNetwork(network, 'Min', 'Ren'));
+        </script>
+    </head>
+</html>
