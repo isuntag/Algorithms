@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Highest Product of 3</title>
+        <script type="text/javascript">
+        /* Given an array of integers, find the highest product you can get from three of the integers.
+        The input arrayOfInts will always have at least three integers.
+        [1,2,3]
+        1*2*3
+        1
+        2
+        3
+        [1,2,3,4]
+        1*2*3
+        1*2*4
+        1*3*4
+        2*3*4
+          1     2
+        2   3   3
+        34  4   4
+        [1,2,3,4,5]
+        1*2*3
+        1*2*4
+        1*2*5
+        1*3*4
+        1*3*5
+        1*4*5
+        2*3*4
+        2*3*5
+        2*4*5
+        3*4*5
+        arrayOfInts.length-3 --> stopping point
+              1       2      3
+            2   3   3   4    4
+           345  45  45  5    5*/
+        function highestProductOf3(arrayOfInts) {
+            var maxProduct = arrayOfInts[0]*arrayOfInts[1]*arrayOfInts[2];
+            function helper(productArray, index) {
+                productArray.push(arrayOfInts[index]);
+                index++;
+                console.log(productArray)
+                if(productArray.length === 3) {
+                    if(productArray[0]*productArray[1]*productArray[2] > maxProduct) {
+                        maxProduct = productArray[0]*productArray[1]*productArray[2];
+                        console.log("new max")
+                    }
+                    console.log("hit 3")
+                    return;
+                } else {
+                    for(let z=index; z<arrayOfInts.length; z++){
+                        helper(productArray, z)
+                    }
+                }
+            }
+            for(let x=0; x<arrayOfInts.length-2; x++) {
+                helper([],x);
+            }
+            return maxProduct;
+        }
+        console.log(highestProductOf3([-10,-10,1,3,2]))
+        </script>
+    </head>
+</html>
