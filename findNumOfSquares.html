@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <script type="text/javascript">
+    function solution(A, B) {
+      var count = 0;
+      var currentNum = B;
+      var currentSqrt;
+      while(!currentSqrt) {
+        if (currentNum <= 0){
+          return 0;
+        } else if(Math.sqrt(currentNum)%1 == 0) {
+          currentSqrt = Math.sqrt(currentNum);
+        } else {
+          currentNum--;
+        }
+      }
+      while(currentSqrt*currentSqrt>=A && currentSqrt*currentSqrt <= B) {
+        count++;
+        currentSqrt--;
+      }
+      return count;
+    }
+    console.log(solution(-14,-7))
+
+    </script>
+  </head>
+</html>
